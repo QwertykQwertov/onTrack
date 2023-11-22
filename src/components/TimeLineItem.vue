@@ -28,6 +28,7 @@ const selectedActivityId = ref(1)
       :options="options"
       placeholder="Rest"
       @select="selectedActivityId = $event"
+      type="danger"
     />
   </li>
 </template>
