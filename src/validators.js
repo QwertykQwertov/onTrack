@@ -9,10 +9,10 @@ export function isButtonTypeValid(type) {
 }
 
 export function validateTimelineItems(timelineItems) {
-  return timelineItems.every(isTimeLIneItemValid)
+  return timelineItems.every(isTimelineItemValid)
 }
 
-export function isTimeLIneItemValid({ hour }) {
+export function isTimelineItemValid({ hour }) {
   return isHourValid(hour)
 }
 
