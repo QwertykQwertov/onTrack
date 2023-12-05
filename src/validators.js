@@ -21,8 +21,13 @@ export function validateActivities(activities) {
 }
 
 export function isActivityValid({ id, name, secondsToComplete }) {
-  return [isNotEmptyString(id), isNotEmptyString(name),
-  isNumber(secondsToComplete)].every(Boolean)
+  if (isNull(id)) return true
+  return [
+    isNotEmptyString(id),
+    isNotEmptyString(name),
+
+    isNumber(secondsToComplete)
+  ].every(Boolean)
 }
 
 export function validateSelectOptions(options) {
@@ -31,6 +36,10 @@ export function validateSelectOptions(options) {
 
 export function isUndefinedOrNull(value) {
   return isUndefined(value) || isNull(value)
+}
+
+export function isNumber(value) {
+  return typeof value === 'number'
 }
 
 export function isNumberOrNull(value) {
@@ -50,13 +59,15 @@ function isSelectOptionValid({ value, label }) {
   return isNumber(value) || isNotEmptyString(value) && isNotEmptyString(label)
 }
 
-function isNull(value) {
+export function isSelectValueValid(value) {
+  return isNotEmptyString(value) || isNumberOrNull(value)
+}
+
+export function isNull(value) {
   return value === null
 }
 
-function isNumber(value) {
-  return typeof value === 'number'
-}
+
 
 function isString(value) {
   return typeof value === 'string'

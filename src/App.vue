@@ -15,7 +15,7 @@ import {
 
 const currentPage = ref(normalizePageHash())
 
-const timelineItems = generateTimelineItems()
+const timelineItems = ref(generateTimelineItems())
 const activities = ref(generateActivities())
 
 const activitySelectOptions = generateActivitySelectOptions(activities.value)
@@ -29,11 +29,20 @@ function createActivity(activity) {
 }
 
 function deleteActivity(activity) {
+  timelineItems.value.forEach((timelineItem) => {
+    if (timelineItem.activityId === activity.id) {
+      timelineItem.activityId = null
+    }
+  })
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
 
-function setTimelineItemActivity({timelineItem, activity}){
- timelineItem.activityId = activity.id
+function setTimelineItemActivity(timelineItem, activity ) {
+  timelineItem.activityId = activity.id
+}
+
+function setActivitySecondsToComplete(activity, secondsToComplete) {
+  activity.secondsToComplete = secondsToComplete
 }
 </script>
 
@@ -52,6 +61,7 @@ function setTimelineItemActivity({timelineItem, activity}){
       :activities="activities"
       @delete-activity="deleteActivity"
       @create-activity="createActivity"
+      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
     />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>

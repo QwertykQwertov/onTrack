@@ -2,7 +2,7 @@
 import ActivityItem from '@/components/ActivityItem.vue'
 import TheActivityForm from '@/components/TheActivityForm.vue'
 import TheActivityEmptyState from '@/components/TheActivityEmptyState.vue'
-import { validateActivities, isActivityValid } from '@/validators'
+import { validateActivities, isActivityValid, isNumber } from '@/validators'
 
 defineProps({
   activities: {
@@ -12,9 +12,16 @@ defineProps({
   }
 })
 const emit = defineEmits({
+  setActivitySecondsToComplete(activity, secondsToComplete) {
+    return [isActivityValid(activity), isNumber(secondsToComplete)].every(Boolean)
+  },
   createActivity: isActivityValid,
   deleteActivity: isActivityValid
 })
+
+function setSecondsToComplete(activity, secondsToComplete) {
+  emit('setActivitySecondsToComplete', activity, secondsToComplete)
+}
 </script>
 <template>
   <div class="flex flex-col grow">
@@ -24,6 +31,7 @@ const emit = defineEmits({
         :key="activity.id"
         :activity="activity"
         @delete="emit('deleteActivity', activity)"
+        @set-seconds-to-complete="setSecondsToComplete(activity, $event)"
       />
     </ul>
     <TheActivityEmptyState v-else/>

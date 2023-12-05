@@ -7,6 +7,7 @@ import {
   isActivityValid,
   validateActivities
 } from '@/validators.js'
+import { NULLABLE_ACTIVITY } from '../constants'
 
 const props = defineProps({
   timelineItem: {
@@ -31,11 +32,11 @@ const emit = defineEmits({
 })
 
 function selectActivity(id) {
-  console.log('SET', id)
-  emit(
-    'selectActivity',
-    props.activities.find((activity) => activity.id === id)
-  )
+  emit('selectActivity', findActivityById(id))
+}
+
+function findActivityById(id) {
+  return props.activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY
 }
 </script>
 <template>
@@ -46,7 +47,6 @@ function selectActivity(id) {
       :selected="timelineItem.activityId"
       :options="activitySelectOptions"
       @select="selectActivity"
-      type="danger"
     />
   </li>
 </template>
