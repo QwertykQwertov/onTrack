@@ -1,5 +1,6 @@
 <script setup>
 import TimeLineHour from './TimeLineHour.vue'
+import TimeLineStopWatch from './TimeLineStopWatch.vue'
 import BaseSelect from './BaseSelect.vue'
 import {
   isTimelineItemValid,
@@ -48,5 +49,6 @@ function findActivityById(id) {
       :options="activitySelectOptions"
       @select="selectActivity"
     />
+    <TimeLineStopWatch :seconds="timelineItem.activitySeconds"/>
   </li>
 </template>
