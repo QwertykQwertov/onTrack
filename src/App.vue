@@ -52,6 +52,7 @@ function setActivitySecondsToComplete(activity, secondsToComplete) {
   <main class="flex flex-grow flex-col">
     <TheTimeline
       v-show="currentPage === PAGE_TIMELINE"
+      :current-page="currentPage"
       :timeline-items="timelineItems"
       :activities="activities"
       :activity-select-options="activitySelectOptions"
