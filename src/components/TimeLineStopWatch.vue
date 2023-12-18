@@ -7,7 +7,7 @@ import {
   BUTTON_TYPE_SUCCESS,
   BUTTON_TYPE_DANGER,
   BUTTON_TYPE_WARNING,
-  MILLISECONDS_IN_SECONSDS
+  MILLISECONDS_IN_SECOND
 } from '../constants'
 import { ref } from 'vue'
 
@@ -31,7 +31,7 @@ const isStartButtonDisabled = props.hour !== new Date().getHours()
 function start() {
   isRunning.value = setInterval(() => {
     seconds.value++
-  }, MILLISECONDS_IN_SECONSDS)
+  }, MILLISECONDS_IN_SECOND)
 }
 
 function stop() {

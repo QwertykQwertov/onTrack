@@ -2,13 +2,18 @@
 import ActivityItem from '@/components/ActivityItem.vue'
 import TheActivityForm from '@/components/TheActivityForm.vue'
 import TheActivityEmptyState from '@/components/TheActivityEmptyState.vue'
-import { validateActivities, isActivityValid, isNumber } from '@/validators'
+import { validateActivities, isActivityValid, isNumber, validateTimelineItems } from '@/validators'
 
 defineProps({
   activities: {
     required: true,
     type: Array,
     validator: validateActivities
+  },
+  timelineItems: {
+    required: true,
+    type: Array,
+    validator: validateTimelineItems
   }
 })
 const emit = defineEmits({
@@ -24,18 +29,19 @@ function setSecondsToComplete(activity, secondsToComplete) {
 }
 </script>
 <template>
-  <div class="flex flex-col grow">
-    <ul v-if="activities.length" class="divide-y grow">
+  <div class="flex grow flex-col">
+    <ul v-if="activities.length" class="grow divide-y">
       <ActivityItem
         v-for="activity in activities"
         :key="activity.id"
         :activity="activity"
+        :timeline-items="timelineItems"
         @delete="emit('deleteActivity', activity)"
         @set-seconds-to-complete="setSecondsToComplete(activity, $event)"
       />
     </ul>
-    <TheActivityEmptyState v-else/>
-    
-    <TheActivityForm @submit="emit('createActivity', $event)"/>
+    <TheActivityEmptyState v-else />
+
+    <TheActivityForm @submit="emit('createActivity', $event)" />
   </div>
 </template>

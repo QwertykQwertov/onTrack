@@ -40,6 +40,8 @@ const emit = defineEmits({
   }
 })
 
+defineExpose({scrollToHour})
+
 const timelineItemsRefs = ref([])
 
 watchPostEffect(async () => {
@@ -50,11 +52,13 @@ watchPostEffect(async () => {
   }
 })
 
-function scrollToHour(hour) {
+function scrollToHour(hour = null) {
+  hour ??= new Date().getHours()
+const options = { behavior: 'smooth' }
   if (hour === MIDNIGHT_HOUR) {
-    document.body.scrollIntoView({ behavior: 'smooth' })
+    document.body.scrollIntoView(options)
   } else {
-    timelineItemsRefs.value[hour - 1].$el.scrollIntoView({ behavior: 'smooth' })
+    timelineItemsRefs.value[hour - 1].$el.scrollIntoView(options)
   }
 }
 </script>
