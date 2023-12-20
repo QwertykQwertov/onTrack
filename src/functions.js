@@ -57,9 +57,6 @@ export function generateTimelineItems(activities) {
     hour,
     activityId: [0, 1, 2, 3, 4].includes(hour) ? activities[hour % 3].id : null,
     activitySeconds: [0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
-
-    // activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
-    // activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR
   }))
 }
 
@@ -67,7 +64,10 @@ export function generateActivitySelectOptions(activities) {
   return activities.map((activity) => ({ value: activity.id, label: activity.name }))
 }
 
-export function generatePeriodSelectOptions(periodsInMinutes) {
+export function generatePeriodSelectOptions() {
+  const periodsInMinutes = [
+    15, 30, 45, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420, 450, 480
+  ]
   return periodsInMinutes.map((periodInMinutes) => ({
     value: periodInMinutes * SECONDS_IN_MINUTE,
     label: generatePeriodSelectOptionsLabel(periodInMinutes)

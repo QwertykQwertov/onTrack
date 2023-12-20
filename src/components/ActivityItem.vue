@@ -1,7 +1,8 @@
 <script setup>
+import { inject } from 'vue'
 import { TrashIcon } from '@heroicons/vue/24/outline'
-import { PERIOD_SELECT_OPTIONS, BUTTON_TYPE_DANGER } from '../constants'
-import { isActivityValid, isUndefined, isNumber, validateTimelineItems } from '@/validators.js'
+import { BUTTON_TYPE_DANGER } from '../constants'
+import { isActivityValid, isUndefined, isNumber } from '@/validators.js'
 
 import BaseButton from '@/components/BaseButton.vue'
 import BaseSelect from '@/components/BaseSelect.vue'
@@ -12,17 +13,15 @@ defineProps({
     required: true,
     type: Object,
     validator: isActivityValid
-  },  timelineItems: {
-    required: true,
-    type: Array,
-    validator: validateTimelineItems
-  },
+  }
 })
 
 const emit = defineEmits({
   setSecondsToComplete: isNumber,
   delete: isUndefined
 })
+
+const periodSelectOptions = inject('periodSelectOptions')
 </script>
 <template>
   <li class="flex flex-col gap-2 p-4">
@@ -37,10 +36,10 @@ const emit = defineEmits({
         class="grow font-mono"
         placeholder="hh:mm"
         :selected="activity.secondsToComplete || null"
-        :options="PERIOD_SELECT_OPTIONS"
+        :options="periodSelectOptions"
         @select="emit('setSecondsToComplete', +$event || 0)"
       />
-      <ActivitySecondsToComplete :activity="activity" :timeline-items="timelineItems" />
+      <ActivitySecondsToComplete :activity="activity" />
     </div>
   </li>
 </template>
