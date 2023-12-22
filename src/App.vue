@@ -14,8 +14,6 @@ import {
   generatePeriodSelectOptions
 } from './functions'
 
-
-
 const currentPage = ref(normalizePageHash())
 
 const activities = ref(generateActivities())
@@ -50,8 +48,8 @@ function deleteActivity(activity) {
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
 
-function setTimelineItemActivity(timelineItem, activity) {
-  timelineItem.activityId = activity.id
+function setTimelineItemActivity(timelineItem, activityId) {
+  timelineItem.activityId = activityId
 }
 
 function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
@@ -63,8 +61,11 @@ function setActivitySecondsToComplete(activity, secondsToComplete) {
 }
 
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
+provide('setActivitySecondsToComplete', setActivitySecondsToComplete)
+provide('setTimelineItemActivity', setTimelineItemActivity)
+provide('createActivity', createActivity)
+provide('deleteActivity', deleteActivity)
 provide('timelineItems', timelineItems.value)
-provide('activities', activities.value)
 provide('activitySelectOptions', activitySelectOptions)
 provide('periodSelectOptions', generatePeriodSelectOptions())
 </script>
@@ -77,16 +78,9 @@ provide('periodSelectOptions', generatePeriodSelectOptions())
       v-show="currentPage === PAGE_TIMELINE"
       :current-page="currentPage"
       :timeline-items="timelineItems"
-      @set-timeline-item-activity="setTimelineItemActivity"
       @update-timeline-item-activity-seconds="updateTimelineItemActivitySeconds"
     />
-    <TheActivities
-      v-show="currentPage === PAGE_ACTIVITIES"
-      :activities="activities"
-      @delete-activity="deleteActivity"
-      @create-activity="createActivity"
-      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
-    />
+    <TheActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
     <TheProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <TheNav :current-page="currentPage" @navigate="goTo($event)" />
