@@ -12,15 +12,14 @@ export function createActivity(activity) {
   activities.value.push(activity)
 }
 
+export function updateActivity(activity, fields){
+  return Object.assign(activity, fields)
+}
+
 export function deleteActivity(activity) {
 
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
-
-export function setActivitySecondsToComplete(activity, secondsToComplete) {
-  activity.secondsToComplete = secondsToComplete || 0
-}
-
 
 function generateActivities() {
   return ['Coding', 'Reading', 'Training'].map((name, hours) => ({
