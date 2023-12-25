@@ -2,15 +2,8 @@
 import ActivityItem from '@/components/ActivityItem.vue'
 import TheActivityForm from '@/components/TheActivityForm.vue'
 import TheActivityEmptyState from '@/components/TheActivityEmptyState.vue'
-import { validateActivities } from '@/validators'
+import { activities } from '@/activities'
 
-defineProps({
-  activities: {
-    required: true,
-    type: Array,
-    validator: validateActivities
-  }
-})
 </script>
 <template>
   <div class="flex grow flex-col">

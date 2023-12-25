@@ -1,45 +1,32 @@
 <script setup>
 import TimeLineItem from '@/components/TimeLineItem.vue'
-import {
-  validateTimelineItems,
-  isPageValid
-} from '@/validators.js'
 import { nextTick, ref, watchPostEffect } from 'vue'
 import { MIDNIGHT_HOUR, PAGE_TIMELINE } from '@/constants'
+import { currentPage } from '@/router'
+import { currentHour } from '@/functions'
+import { timelineItems } from '@/timeline-items'
 
-const props = defineProps({
-  timelineItems: {
-    required: true,
-    type: Array,
-    validator: validateTimelineItems
-  },
-  currentPage: {
-    required: true,
-    type: String,
-    validator: isPageValid
-  }
-})
 
 defineExpose({ scrollToHour })
 
-const timelineItemsRefs = ref([])
+const timelineItemRefs = ref([])
 
 watchPostEffect(async () => {
-  if (props.currentPage === PAGE_TIMELINE) {
+  if (currentPage.value === PAGE_TIMELINE) {
     await nextTick()
 
-    scrollToHour(new Date().getHours())
+    scrollToHour(currentHour())
   }
 })
 
 function scrollToHour(hour = null) {
-  hour ??= new Date().getHours()
+  hour ??= currentHour()
+
+  // const options = {behavior: isSmooth ? 'smooth' : 'instant'}
+  const el = hour === MIDNIGHT_HOUR ? document.body : timelineItemRefs.value[hour - 1].$el
+
   const options = { behavior: 'smooth' }
-  if (hour === MIDNIGHT_HOUR) {
-    document.body.scrollIntoView(options)
-  } else {
-    timelineItemsRefs.value[hour - 1].$el.scrollIntoView(options)
-  }
+  el.scrollIntoView(options)
 }
 </script>
 
@@ -47,11 +34,11 @@ function scrollToHour(hour = null) {
   <div class="mt-7">
     <ul>
       <TimeLineItem
-        ref="timelineItemsRefs"
+        ref="timelineItemRefs"
         v-for="timelineItem in timelineItems"
         :key="timelineItem.hour"
         :timeline-item="timelineItem"
-        @scroll-to-hour="scrollToHour"
+        @scroll-to-hour="scrollToHour(timelineItem.hour)"
       />
     </ul>
   </div>
