@@ -37,6 +37,13 @@ export function generatePeriodSelectOptions() {
   }))
 }
 
+export function getProgressColorClass(percentage) {
+  if (percentage < 33) return 'bg-red-500'
+  if (percentage < 66) return 'bg-yellow-500'
+  if (percentage < 100) return 'bg-blue-500'
+  return 'bg-green-500'
+}
+
 function generatePeriodSelectOptionsLabel(periodInMinutes) {
   const hours = Math.floor(periodInMinutes / MINUTES_IN_HOUR).toString().padStart(2, 0)
   const minutes = (periodInMinutes % MINUTES_IN_HOUR).toString().padStart(2, 0)

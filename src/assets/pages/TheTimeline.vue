@@ -15,7 +15,6 @@ onActivated(scrollToCurrentHour)
         v-for="timelineItem in timelineItems"
         :key="timelineItem.hour"
         :timeline-item="timelineItem"
-        @scroll-to-hour="scrollToHour(timelineItem.hour)"
       />
     </ul>
   </div>
