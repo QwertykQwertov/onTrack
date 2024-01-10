@@ -26,9 +26,19 @@ export function deleteActivity(activity) {
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
 
-export function calculateActivityCompletionPercentage({secondsToComplete}, trackedSeconds) {
+export function calculateActivityCompletionPercentage({ secondsToComplete }, trackedSeconds) {
   return Math.floor((trackedSeconds * 100) / secondsToComplete)
 }
+
+export function calculateCompletionPercentage(totalTrackedSeconds) {
+  return Math.floor((totalTrackedSeconds * 100) / totalActivitySecondsToComplete.value)
+}
+
+const totalActivitySecondsToComplete = computed(() => {
+  return trackedActivities.value
+    .map(({ secondsToComplete }) => secondsToComplete)
+    .reduce((total, seconds) => total + seconds, 0)
+})
 
 function generateActivities() {
   return ['Coding', 'Reading', 'Training'].map((name, hours) => ({
