@@ -4,7 +4,6 @@ import { timelineItems, timelineItemRefs, scrollToCurrentHour } from '@/timeline
 import TimeLineItem from '@/components/TimeLineItem.vue'
 import TheTimelineIndicator from '@/components/TheTimelineIndicator.vue'
 
-
 onActivated(scrollToCurrentHour)
 </script>
 
