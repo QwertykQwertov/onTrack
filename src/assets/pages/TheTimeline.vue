@@ -1,50 +1,21 @@
 <script setup>
+import { onActivated } from 'vue'
+import { timelineItems, timelineItemRefs, scrollToCurrentHour } from '@/timeline-items'
 import TimeLineItem from '@/components/TimeLineItem.vue'
-import {
-  validateTimelineItems,
-  validateSelectOptions,
-  validateActivities,
-  isTimelineItemValid,
-  isActivityValid
-} from '@/validators.js'
+import TheTimelineIndicator from '@/components/TheTimelineIndicator.vue'
 
-defineProps({
-  timelineItems: {
-    required: true,
-    type: Array,
-    validator: validateTimelineItems
-  },
-  activities: {
-    required: true,
-    type: Array,
-    validator: validateActivities
-  },
-  activitySelectOptions: {
-    required: true,
-    type: Array,
-    validator: validateSelectOptions
-  }
-})
-
-const emit = defineEmits({
-  setTimelineItemActivity(timelineItem, activity) {
-    return [isTimelineItemValid(timelineItem), isActivityValid(activity)].every(
-      Boolean
-    )
-  }
-})
+onActivated(scrollToCurrentHour)
 </script>
 
 <template>
-  <div class="mt-7">
+  <div class="mt-7 relative">
+    <TheTimelineIndicator />
     <ul>
       <TimeLineItem
+        ref="timelineItemRefs"
         v-for="timelineItem in timelineItems"
         :key="timelineItem.hour"
         :timeline-item="timelineItem"
-        :activities="activities"
-        :activity-select-options="activitySelectOptions"
-        @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
       />
     </ul>
   </div>

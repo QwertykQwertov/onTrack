@@ -1,17 +1,15 @@
 <script setup>
-import { PlusIcon } from '@heroicons/vue/24/outline'
+import BaseIcon from './BaseIcon.vue'
+import { ICON_PLUS } from '@/icons'
 import BaseButton from '@/components/BaseButton.vue'
-import { isActivityValid } from '@/validators'
 import { id } from '@/functions'
 import { nextTick, ref } from 'vue'
+import {createActivity} from '@/activities'
 
-const emit = defineEmits({
-  submit: isActivityValid
-})
 const name = ref('')
 
 async function submit() {
-  emit('submit', {
+  createActivity({
     id: id(),
     name: name.value,
     secondsToComplete: 0
@@ -34,7 +32,7 @@ async function submit() {
       placeholder="Activity name"
     />
     <BaseButton :disabled="name.trim() === ''">
-      <PlusIcon class="h-8" />
+      <BaseIcon :name="ICON_PLUS" class="h-8" />
     </BaseButton>
   </form>
 </template>
