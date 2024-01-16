@@ -1,5 +1,6 @@
 import { MILLISECONDS_IN_SECOND, SECONDS_IN_MINUTE, MINUTES_IN_HOUR } from './constants'
 import { isNull } from './validators'
+import { ProgressColorClass, type SelectOption } from './types'
 
 export function formatSecondsWithSign(seconds: number): string {
   return `${seconds >= 0 ? '+' : '-'}${formatSeconds(seconds)}`
@@ -19,28 +20,16 @@ export function normalizeSelectValue(value: any): any {
   return isNull(value) || isNaN(value) ? value : +value
 }
 
-interface PeriodSelectOption {
-  value: number
-  label: string
-}
-
-export function generatePeriodSelectOptions(): PeriodSelectOption[] {
+export function generatePeriodSelectOptions(): SelectOption<number>[] {
   const periodsInMinutes = [
     15, 30, 45, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420, 450, 480
   ]
   return periodsInMinutes.map(
-    (periodInMinutes): PeriodSelectOption => ({
+    (periodInMinutes): SelectOption<number> => ({
       value: periodInMinutes * SECONDS_IN_MINUTE,
       label: generatePeriodSelectOptionsLabel(periodInMinutes)
     })
   )
-}
-
-enum ProgressColorClass {
-  RED = 'bg-red-500',
-  YELLOW = 'bg-yellow-500',
-  BLUE = 'bg-blue-500',
-  GREEN = 'bg-green-500'
 }
 
 export function getProgressColorClass(percentage: number) {

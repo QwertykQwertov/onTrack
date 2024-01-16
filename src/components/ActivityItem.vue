@@ -1,14 +1,14 @@
 <script setup>
 import BaseIcon from './BaseIcon.vue'
-import { BUTTON_TYPE_DANGER, PERIOD_SELEC_OPTIONS } from '@/constants'
-import { ICON_TRASH } from '@/icons'
-import { isActivityValid } from '@/validators.js'
-import { updateActivity, deleteActivity } from '@/activities'
-import { timelineItems, resetTimelineItemActivities } from '@/timeline-items'
+import { BUTTON_TYPE_DANGER, PERIOD_SELEC_OPTIONS } from '../constants'
+import { ICON_TRASH } from '../icons'
+import { isActivityValid } from '../validators'
+import { updateActivity, deleteActivity } from '../activities'
+import { timelineItems, resetTimelineItemActivities } from '../timeline-items'
 
-import BaseButton from '@/components/BaseButton.vue'
-import BaseSelect from '@/components/BaseSelect.vue'
-import RemainingActivitySeconds from '@/components/RemainingActivitySeconds.vue'
+import BaseButton from '../components/BaseButton.vue'
+import BaseSelect from '../components/BaseSelect.vue'
+import RemainingActivitySeconds from '../components/RemainingActivitySeconds.vue'
 
 defineProps({
   activity: {

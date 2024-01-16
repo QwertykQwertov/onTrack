@@ -1,15 +1,7 @@
 import { computed, ref } from 'vue'
+import type { Activity, SelectOption } from './types'
 
-interface Activity {
-  id: string
-  name: string
-  secondsToComplete: number
-}
 
-interface activitySelectOption {
-  value: string
-  label: string
-}
 
 export const activities = ref<Activity[]>([])
 
@@ -17,7 +9,7 @@ export const trackedActivities = computed<Activity[]>(() =>
   activities.value.filter(({ secondsToComplete }): boolean => secondsToComplete !== 0)
 )
 
-export const activitySelectOptions = computed<activitySelectOption[]>(() =>
+export const activitySelectOptions = computed<SelectOption[]>(() =>
   generateActivitySelectOptions(activities.value)
 )
 
@@ -54,6 +46,6 @@ const totalActivitySecondsToComplete = computed(() => {
     .reduce((total, seconds) => total + seconds, 0)
 })
 
-function generateActivitySelectOptions(activities: Activity[]): activitySelectOption[] {
-  return activities.map((activity): activitySelectOption => ({ value: activity.id, label: activity.name }))
+function generateActivitySelectOptions(activities: Activity[]): SelectOption[] {
+  return activities.map((activity): SelectOption => ({ value: activity.id, label: activity.name }))
 }
