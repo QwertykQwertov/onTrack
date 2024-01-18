@@ -1,5 +1,5 @@
 import { computed, ref } from 'vue'
-import type { Activity, SelectOption } from './types'
+import type { Activity, SelectOption, State } from './types'
 
 
 
@@ -13,7 +13,7 @@ export const activitySelectOptions = computed<SelectOption[]>(() =>
   generateActivitySelectOptions(activities.value)
 )
 
-export function initializeActivities(state: any): void {
+export function initializeActivities(state: State): void {
   activities.value = state.activities || []
 }
 
@@ -21,7 +21,7 @@ export function createActivity(activity: Activity): void {
   activities.value.push(activity)
 }
 
-export function updateActivity(activity: Activity, fields: any): Activity {
+export function updateActivity(activity: Activity, fields: Partial<Activity>): Activity {
   return Object.assign(activity, fields)
 }
 
