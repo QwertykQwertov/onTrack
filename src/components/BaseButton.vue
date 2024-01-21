@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+import type { ButtonType } from '../types'
+
 import {
   BUTTON_TYPE_SUCCESS,
   BUTTON_TYPE_WARNING,
@@ -6,7 +8,8 @@ import {
   BUTTON_TYPE_NEUTRAL,
   BUTTON_TYPE_PRIMARY
 } from '../constants'
-const typeClasses = {
+
+const typeClasses: Record<ButtonType, string> = {
   [BUTTON_TYPE_SUCCESS]: 'bg-green-500 enabled:hover:bg-red-600 text-white',
   [BUTTON_TYPE_WARNING]: 'bg-yellow-500 enabled:hover:bg-red-600 text-white',
   [BUTTON_TYPE_DANGER]: 'bg-red-500 enabled:hover:bg-red-600 text-white',
@@ -15,15 +18,8 @@ const typeClasses = {
 }
 </script>
 
-<script setup>
-import { isButtonTypeValid } from '../validators'
-const props = defineProps({
-  type: {
-    default: BUTTON_TYPE_PRIMARY,
-    type: String,
-    validator: isButtonTypeValid
-  }
-})
+<script setup lang="ts">
+const props = withDefaults(defineProps<{ type?: ButtonType }>(), { type: BUTTON_TYPE_PRIMARY })
 
 const classes = `${
   typeClasses[props.type]
