@@ -31,7 +31,7 @@ function deleteAndResetActivity(activity: Activity): void {
         placeholder="hh:mm"
         :selected="((activity.secondsToComplete || null) as any)"
         :options="PERIOD_SELEC_OPTIONS"
-        @select="updateActivity(activity, { secondsToComplete: ($event as any) || 0 })"
+        @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
       />
       <RemainingActivitySeconds :activity="activity" />
     </div>
