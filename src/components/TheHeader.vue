@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import TheLogo from './TheLogo.vue'
 import TheHeaderProgress from './TheHeaderProgress.vue'
 
@@ -10,3 +10,4 @@ import TheHeaderProgress from './TheHeaderProgress.vue'
     <TheHeaderProgress/>
   </header>
 </template>
+

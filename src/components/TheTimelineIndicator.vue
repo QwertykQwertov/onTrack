@@ -1,16 +1,16 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
-import { secondsSinceMidnightInPercentage } from '@/time'
+import { secondsSinceMidnightInPercentage } from '../time'
 
-const indicatorRef = ref()
+const indicatorRef = ref<HTMLHRElement | null>(null)
 
 
 const topOffset = computed(
-  () => (secondsSinceMidnightInPercentage.value * getTimelineHeight()) / 100
+  (): number => (secondsSinceMidnightInPercentage.value * getTimelineHeight()) / 100
 )
 
-function getTimelineHeight() {
-  return indicatorRef.value?.parentNode.getBoundingClientRect().height
+function getTimelineHeight(): number {
+  return indicatorRef.value?.parentElement?.getBoundingClientRect().height ?? 0
 }
 
 

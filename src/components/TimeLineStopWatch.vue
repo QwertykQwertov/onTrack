@@ -1,25 +1,18 @@
-<script setup>
-import { ICON_ARROW_PATH, ICON_PAUSE, ICON_PLAY } from '@/icons'
-import BaseButton from './BaseButton.vue'
-import BaseIcon from './BaseIcon.vue'
-import { isTimelineItemValid } from '@/validators'
-import { formatSeconds } from '@/functions'
-import { BUTTON_TYPE_SUCCESS, BUTTON_TYPE_DANGER, BUTTON_TYPE_WARNING } from '@/constants'
-import { now } from '@/time'
-import { activeTimelineItem } from '@/timeline-items'
+<script setup lang="ts">
+import { BUTTON_TYPE_SUCCESS, BUTTON_TYPE_DANGER, BUTTON_TYPE_WARNING } from '../constants'
+import { formatSeconds } from '../functions'
+import { now } from '../time'
+import { activeTimelineItem } from '../timeline-items'
 import {
   resetTimelineItemTimer,
   startTimelineItemTimer,
-  stopTimelineItemTimer,
-} from '@/timeline-item-timer'
+  stopTimelineItemTimer
+} from '../timeline-item-timer'
+import BaseButton from './BaseButton.vue'
+import BaseIcon from './BaseIcon.vue'
+import { IconName, type TimelineItem } from '../types'
 
-defineProps({
-  timelineItem: {
-    required: true,
-    type: Object,
-    validator: isTimelineItemValid
-  }
-})
+defineProps<{ timelineItem: TimelineItem }>()
 </script>
 <template>
   <div class="flex w-full gap-2">
@@ -28,7 +21,7 @@ defineProps({
       :type="BUTTON_TYPE_DANGER"
       @click="resetTimelineItemTimer(timelineItem)"
     >
-      <BaseIcon :name="ICON_ARROW_PATH" class="h-8" />
+      <BaseIcon :name="IconName.ARROW_PATH" class="h-8" />
     </BaseButton>
     <div class="flex flex-grow items-center rounded bg-gray-100 px-2 font-mono text-3xl">
       {{ formatSeconds(timelineItem.activitySeconds) }}
@@ -38,7 +31,7 @@ defineProps({
       :type="BUTTON_TYPE_WARNING"
       @click="stopTimelineItemTimer"
     >
-      <BaseIcon :name="ICON_PAUSE" class="h-8" />
+      <BaseIcon :name="IconName.PAUSE" class="h-8" />
     </BaseButton>
     <BaseButton
       v-else
@@ -46,7 +39,7 @@ defineProps({
       :disabled="timelineItem.hour !== now.getHours()"
       @click="startTimelineItemTimer(timelineItem)"
     >
-      <BaseIcon :name="ICON_PLAY" class="h-8" />
+      <BaseIcon :name="IconName.PLAY" class="h-8" />
     </BaseButton>
   </div>
 </template>
