@@ -1,14 +1,3 @@
-import {
-  PAGE_ACTIVITIES,
-  PAGE_PROGRESS,
-  PAGE_TIMELINE,
-  BUTTON_TYPE_SUCCESS,
-  BUTTON_TYPE_WARNING,
-  BUTTON_TYPE_DANGER,
-  BUTTON_TYPE_NEUTRAL,
-  BUTTON_TYPE_PRIMARY
-} from './constants'
-
 export type Hour =
   | 0
   | 1
@@ -35,20 +24,26 @@ export type Hour =
   | 22
   | 23
 
-  export enum IconName {
-    CHECK_CIRCLE = 'CheckCircle',
-    LIST_BULLET = 'ListBullet',
-    ARROW_PATH = 'ArrowPath',
-    CHART_BAR = 'ChartBar',
-    CLOCK = 'Clock',
-    TRASH = 'Trash',
-    X_MARK = 'XMark',
-    PAUSE = 'Pause',
-    PLAY = 'Play',
-    PLUS = 'Plus'
-  }
+export enum IconName {
+  CHECK_CIRCLE = 'CheckCircle',
+  LIST_BULLET = 'ListBullet',
+  ARROW_PATH = 'ArrowPath',
+  CHART_BAR = 'ChartBar',
+  CLOCK = 'Clock',
+  TRASH = 'Trash',
+  X_MARK = 'XMark',
+  PAUSE = 'Pause',
+  PLAY = 'Play',
+  PLUS = 'Plus'
+}
 
-export type PageName = typeof PAGE_TIMELINE | typeof PAGE_ACTIVITIES | typeof PAGE_PROGRESS
+// export type PageName = typeof PAGE_TIMELINE | typeof PAGE_ACTIVITIES | typeof PAGE_PROGRESS
+
+export enum PageName {
+  TIMELINE = 'timeline',
+  ACTIVITIES = 'activities',
+  PROGRESS = 'progress'
+}
 
 export interface Activity {
   id: string
@@ -79,12 +74,13 @@ export interface NavItem {
   icon: IconName
 }
 
-export type ButtonType =
-  | typeof BUTTON_TYPE_SUCCESS
-  | typeof BUTTON_TYPE_WARNING
-  | typeof BUTTON_TYPE_DANGER
-  | typeof BUTTON_TYPE_NEUTRAL
-  | typeof BUTTON_TYPE_PRIMARY
+export enum ButtonType {
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  DANGER = 'danger',
+  NEUTRAL = 'neutral',
+  PRIMARY = 'primary'
+}
 
 export enum ProgressColorClass {
   RED = 'bg-red-500',

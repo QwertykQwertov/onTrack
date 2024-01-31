@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import BaseIcon from './BaseIcon.vue'
-import { BUTTON_TYPE_DANGER, PERIOD_SELEC_OPTIONS } from '../constants'
+import { PERIOD_SELEC_OPTIONS } from '../constants'
 import { updateActivity, deleteActivity } from '../activities'
 import { timelineItems, resetTimelineItemActivities } from '../timeline-items'
 
 import BaseButton from '../components/BaseButton.vue'
 import BaseSelect from '../components/BaseSelect.vue'
 import RemainingActivitySeconds from '../components/RemainingActivitySeconds.vue'
-import { IconName, type Activity } from '../types'
+import { IconName, ButtonType, type Activity } from '../types'
 
 defineProps<{ activity: Activity }>()
 
@@ -19,7 +19,7 @@ function deleteAndResetActivity(activity: Activity): void {
 <template>
   <li class="flex flex-col gap-2 p-4">
     <div class="flex items-center gap-2">
-      <BaseButton :type="BUTTON_TYPE_DANGER" @click="deleteAndResetActivity(activity)">
+      <BaseButton :type="ButtonType.DANGER" @click="deleteAndResetActivity(activity)">
         <BaseIcon :name="IconName.TRASH" class="h-8" />
       </BaseButton>
       <span class="truncate text-xl">{{ activity.name }}</span>
@@ -28,7 +28,7 @@ function deleteAndResetActivity(activity: Activity): void {
       <BaseSelect
         class="grow font-mono"
         placeholder="hh:mm"
-        :selected="((activity.secondsToComplete || null) as any)"
+        :selected="(activity.secondsToComplete || null) as any"
         :options="PERIOD_SELEC_OPTIONS"
         @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
       />

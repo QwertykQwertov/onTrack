@@ -1,9 +1,8 @@
 <script setup lang="ts" generic="T extends number | string">
 import BaseIcon from './BaseIcon.vue'
 import BaseButton from './BaseButton.vue'
-import { BUTTON_TYPE_NEUTRAL } from '../constants'
 import { normalizeSelectValue } from '../functions'
-import { IconName, type SelectOption } from '../types'
+import { IconName, ButtonType,  type SelectOption } from '../types'
 
 defineProps<{
   options: SelectOption<T>[]
@@ -20,7 +19,7 @@ function select(value: string | null) {
 </script>
 <template>
   <div class="flex gap-2">
-    <BaseButton @click="select(null)" :type="BUTTON_TYPE_NEUTRAL">
+    <BaseButton @click="select(null)" :type="ButtonType.NEUTRAL">
       <BaseIcon :name="IconName.X_MARK" class="h-8" />
     </BaseButton>
     <select
